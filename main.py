@@ -100,3 +100,33 @@ def circum():
     c = 2 * pi * r
     return c
 print("Your score = ", circum())
+
+y = int(0b101)
+z = int(0b0011)
+print(-8//3)
+print(y^z)
+print(~5)
+
+string = "Hello World"
+print(string[0])
+r = range(5)#0,1,2,3,4
+print(r[4])
+print(r)
+
+b = b"Hello"
+print(b)
+
+data = bytearray([67,98])
+print(data[0])
+data[0] = 88
+print(data)
+
+set_1 = {1,2}
+set_2 = {2,3}
+universal_set = set_1 | set_2
+
+#NOTE | is used to rep union in sets and  & is used to rep intersection - is used to rep difference
+print(set_1 | set_2)
+print(set_1 & set_2)
+print(set_1 - set_2)
+print(universal_set - (set_1 & set_2))
