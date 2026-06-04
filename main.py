@@ -13,23 +13,23 @@ def add(a, b):
 print (add(5,7))
 
 # SYNTAX ERRORS IN PYHTON
-# 1. Lack of parenthesis
-# 2. Incorrect use of words or keywords e.g def = 10
-# 3. Missing colon e.g if x>10
+# 1. Lack of parenthesis - syntax error
+# 2. Incorrect use of words or keywords e.g def = 10, gives syntax error because reserved keywords cannot be used as variable names
+# 3. Missing colon e.g if x>10 - syntax error
 # print("hello") note.. there's a missing colon there
 # e.g.2 def COS103()
 #print("Hello")
 # 4. Indentation error e.g if x ==3:
                         #  print('Hello') 
-# 5. Unterminated string literal (Unmatched parenthesis)
+# 5. Unterminated string literal (Unmatched parenthesis) - syntax error
 # 6. Extra or missing bracket
 # 7. Incorrect function definition
 # 8. Use of special characters in declaring a variable and numbers at the end of letters.. invalid variable name e.g 2name = "jene"
 # 9. Using commas in a list
-# # 10. Type error e.g
+# # 10. Type error i.e you cannot concatenate different data types e.g
 # score = 70
 # print("you score = " + score)
-# ii. Wrong number of arguments
+# ii. Wrong number of arguments e.g len(1,2,3), len only takes one argument
 # 11. zero division e.g x = 10/0
 # 12. Index Error number1 = [1,2,3,4] 
 # print(number1[2])
@@ -101,11 +101,17 @@ def circum():
     return c
 print("Your score = ", circum())
 
-y = int(0b101)
+# You can just simply make use of commas in printing, but remember you cannot concatenate different data types
+
+y = int(0b101) # NOTE: this is used to declare binary numbers
 z = int(0b0011)
 print(-8//3)
 print(y^z)
 print(~5)
+
+h = 0b10101
+j = 0b01101
+print(h & j) # performs AND operation and converts back to decimal
 
 string = "Hello World"
 print(string[0])
@@ -130,3 +136,14 @@ print(set_1 | set_2)
 print(set_1 & set_2)
 print(set_1 - set_2)
 print(universal_set - (set_1 & set_2))
+
+text = "Python"
+print(text[1:5])
+print(text[::-2])
+"""hello can this be read?""" 
+
+multi_line_comment = """hello can this be read?""" 
+print(multi_line_comment)
+
+pi = 3.14159
+print(f"{pi:.2f}")

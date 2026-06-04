@@ -43,3 +43,7 @@ for i in range(len(word)):
         word = word[:i] + "*" + word[i+1:]
 
 print(word)
+
+numbers = [1,2,3,4,5]
+print(numbers[:2]) #works using index and stops before the number after the colon
+print([numbers[2]])
