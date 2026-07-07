@@ -20,3 +20,7 @@ for i in range(len(scores)):
         passed_students_count += 1
 
 print(f"The number of students who passed are {passed_students_count} students")
+
+student = {"name": "Sinmi", "age": 25, "scores": [32,45,67,89,34,90,76]}
+student["name"] = "John"
+print(student)
