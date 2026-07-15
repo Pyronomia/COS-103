@@ -45,11 +45,17 @@ def login_page():
     while True:
         login_input = input("Please Input a Number: ")
         if (login_input == "1"):
+            print("Press q to quit the action below")
             new_username = input("Please Enter Your Desired Username: ")
+            if(new_username == "q"):
+                return
             running_loop = True
             while running_loop:
                 pin = "valid"
+                print("Press q to quit the action below")
                 new_pin = input("Please Create Your Unique Pin: ")
+                if (new_pin == "q"):
+                    return
                 if (new_pin.isdigit() and len(new_pin) == 4):
                     for user_1 in atm_users:
                         if (new_pin == user_1["Pin"]):
@@ -64,7 +70,10 @@ def login_page():
                     break 
     
             while True:
+                print("Press q to quit the action below")
                 new_balance = input("Please Enter the Amount You Wish to Deposit: ")
+                if(new_balance == "q"):
+                    return
                 if (new_balance.isdigit()):
                     break
                 else:
@@ -124,7 +133,10 @@ def user_authentication():
         if (pin_tries == 0):
             print(f"{long_div}\nYou Have Exhausted All Your Tries...\n{long_div}")
             break
+        print("Press q to quit the action below")
         user_check_in_pin = input("Enter Your 4-Digit Pin: ")
+        if(user_check_in_pin == "q"):
+            return
         if user_check_in_pin.isdigit() and len(user_check_in_pin) == 4:
             # Checking if the pin is correct
             for user in atm_users:
@@ -171,16 +183,20 @@ def user_authentication():
 
 # Check Current Balance Function
 def check_current_balance(user_balance):
-    print(f"{long_div}\nYour Current Account Balance is {user_balance} Naira\n{long_div}")
+    print(f"{long_div}\nYour Current Account Balance is {user_balance:,.2f} Naira\n{long_div}")
 
 # Withdraw Cash Function
 def withdraw_cash(user_balance):
     while True:
+        print("Press q to quit the action below")
         amount_to_be_withdrawn = input("Please Enter the Amount You Wish to Withdraw: ")
-        if(amount_to_be_withdrawn == "0"):
+        if (amount_to_be_withdrawn == "q"):
+            return
+        elif(amount_to_be_withdrawn == "0"):
             print(f"{long_div}\nAmount Must Be Greater Than Zero\n{long_div}")
         elif(amount_to_be_withdrawn.isdigit()) and int(amount_to_be_withdrawn) <= user_balance and int(amount_to_be_withdrawn) >= 50:
-            print(f"{long_div}\n{amount_to_be_withdrawn} Naira Has Been Successfully Withdrawn!\n{long_div}")
+            amount_to_be_withdrawn = int(amount_to_be_withdrawn)
+            print(f"{long_div}\n{amount_to_be_withdrawn:,.2f} Naira Has Been Successfully Withdrawn!\n{long_div}")
             break
         elif(amount_to_be_withdrawn.isdigit()) and int(amount_to_be_withdrawn) <= user_balance and int(amount_to_be_withdrawn) < 50:
             print(f"{long_div}\nThe Minimum Amount You Can Withdraw is 50 Naira\n{long_div}")
@@ -189,37 +205,42 @@ def withdraw_cash(user_balance):
             return
         else:
             print(f"{long_div}\nPlease Input a Valid Number\n{long_div}")
-    amount_to_be_withdrawn = int(amount_to_be_withdrawn)
     new_balance = user_balance - amount_to_be_withdrawn
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
         if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Withdrew {amount_to_be_withdrawn} Naira")
+            item[user_check_in_object["Pin"]].append(f"Withdrew {amount_to_be_withdrawn:,.2f} Naira")
     
 # Deposit Cash Function
 def deposit_cash(user_balance):
     while True:
+        print("Press q to quit the action below")
         amount_to_be_deposited = input("Please Enter the Amount You Wish to Deposit: ")
-        if(amount_to_be_deposited.isdigit() and int(amount_to_be_deposited) > 0):
-            print(f"{long_div}\n{amount_to_be_deposited} Naira Has Been Successfully Deposited!\n{long_div}")
+        if (amount_to_be_deposited == "q"):
+            return
+        elif(amount_to_be_deposited.isdigit() and int(amount_to_be_deposited) > 0):
+            amount_to_be_deposited = int(amount_to_be_deposited)
+            print(f"{long_div}\n{amount_to_be_deposited:,.2f} Naira Has Been Successfully Deposited!\n{long_div}")
             break
         elif(amount_to_be_deposited.isdigit() and int(amount_to_be_deposited) == 0):
             print(f"{long_div}\nYou Cannot Deposit 0 Naira!\n{long_div}")
         else:
             print(f"{long_div}\nPlease Input a Valid Number\n{long_div}")
-    amount_to_be_deposited = int(amount_to_be_deposited)
     new_balance = user_balance + amount_to_be_deposited
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
         if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Deposited {amount_to_be_deposited} Naira")
+            item[user_check_in_object["Pin"]].append(f"Deposited {amount_to_be_deposited:,.2f} Naira")
     
 # Change Pin Function
 def change_pin():
     while True:
         while True:
             pin_pass = ""
+            print("Press q to quit the action below")
             new_pin = input("Please Input Your New Pin: ")
+            if (new_pin == "q"):
+                return
             for user_4 in atm_users:
                 if (new_pin == user_4["Pin"] and new_pin != user_check_in_object["Pin"]):
                     print(f"{long_div}\nThis Pin Already Exists Please Try Another One\n{long_div}")
@@ -247,28 +268,31 @@ def change_pin():
             print(f"{long_div}\nPin Successfully Changed!\n{long_div}")
             break
         else: 
-            print("The Pins Did Not Match!")
+            print(f"{long_div}\nThe Pins Did Not Match!\n{long_div}")
 
 # Pay Bills Function
 def pay_bills(user_balance):
     while True:
+        print("Press q to quit the action below")
         amount_to_be_paid = input("Please Enter the Amount You Wish to Pay: ")
-        if(amount_to_be_paid == "0"):
+        if (amount_to_be_paid == "q"):
+            return
+        elif(amount_to_be_paid == "0"):
             print(f"{long_div}\nAmount Must Be Greater Than Zero\n{long_div}")
         elif(amount_to_be_paid.isdigit()) and int(amount_to_be_paid) <= user_balance:
-            print(f"{long_div}\n{amount_to_be_paid} Naira Has Been Successfully Paid!\n{long_div}")
+            amount_to_be_paid = int(amount_to_be_paid)
+            print(f"{long_div}\n{amount_to_be_paid:,.2f} Naira Has Been Successfully Paid!\n{long_div}")
             break
         elif((amount_to_be_paid.isdigit()) and int(amount_to_be_paid) > user_balance):
             print(f"{long_div}\nInsufficient Balance\n{long_div}")
             return
         else:
             print(f"{long_div}\nPlease Input a Valid Number\n{long_div}")
-    amount_to_be_paid = int(amount_to_be_paid)
     new_balance = user_balance - amount_to_be_paid
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
         if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Paid {amount_to_be_paid} Naira")
+            item[user_check_in_object["Pin"]].append(f"Paid {amount_to_be_paid:,.2f} Naira")
 
 # Transaction History
 def trans_history(): 
