@@ -147,3 +147,6 @@ print(multi_line_comment)
 
 pi = 3.14159
 print(f"{pi:.2f}")
+
+
+print("hello world")

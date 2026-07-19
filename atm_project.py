@@ -1,26 +1,31 @@
 # Users
 atm_users = [
    {    "Name": "Sinmiloluwa",
+        "Account No": 9042089471,
         "Pin": "9873",
         "Balance": 23290
     },
     {
         "Name": "David",
+        "Account No": 9112189081,
         "Pin": "3256",
         "Balance": 3550
     },
      {
         "Name": "Elijah",
+        "Account No": 8088901234,
         "Pin": "7654",
         "Balance": 100000
     },
      {
         "Name": "Esther",
+        "Account No": 7135654321,
         "Pin": "2987",
         "Balance": 54780
     },
     {
         "Name": "Sarah",
+        "Account No": 7029876123,
         "Pin": "4018",
         "Balance": 78240
     }
@@ -127,45 +132,58 @@ def action_input():
 user_check_in_object = ""
 def user_authentication():
     global user_pin_tries_pass
+    global break_loop
+    global user_check_in_object
     user_pin_tries_pass = ""
     pin_tries = 5
+    break_loop = ""
     while True:
         if (pin_tries == 0):
             print(f"{long_div}\nYou Have Exhausted All Your Tries...\n{long_div}")
             break
+        while True:
+            print("Press q to quit the action below")
+            user_account_no = input("Enter Your Account Number: ")
+            if(user_account_no == "q"):
+                return 
+            elif (user_account_no.isdigit() and len(user_account_no) == 10):
+                for user in atm_users:
+                    if (user_account_no == user["Account No"]):
+                        user_check_in_object = user
+                        break_loop = "break"
+                        break
+            elif(break_loop == "break"):
+                break
+            else:
+                print("Please Input a Valid Account Number")
+
         print("Press q to quit the action below")
         user_check_in_pin = input("Enter Your 4-Digit Pin: ")
         if(user_check_in_pin == "q"):
             return
         if user_check_in_pin.isdigit() and len(user_check_in_pin) == 4:
             # Checking if the pin is correct
-            for user in atm_users:
-                if (user_check_in_pin == user["Pin"]):
-                    global user_check_in_object
-                    tran_his_exists = ""
-                    print(f"{long_div}\nWelcome {user["Name"]}\n{long_div}")
-                    user_check_in_object = user
-                    user_pin_tries_pass = True
-
-                    # Transaction history
-                    global transaction_history
-                    global accessed
-
-                    if (accessed == "no"):
-                        new_user_history = {user_check_in_object["Pin"]: []}
-                        transaction_history.append(new_user_history)
-                        accessed = "yes"
-                        return
-                    if (accessed == "yes"):
-                        for item in transaction_history:
-                            if (list(item)[0] == user_check_in_object["Pin"]):
-                                tran_his_exists = "yes"
-                                return
-
-                        if (tran_his_exists == ""):
-                            new_user_history = {user_check_in_object["Pin"]: []}
-                            transaction_history.append(new_user_history)
+            if (user_check_in_pin == user_check_in_object["Pin"]):
+                tran_his_exists = ""
+                print(f"{long_div}\nWelcome {user_check_in_object["Name"]}\n{long_div}")
+                user_pin_tries_pass = True
+                # Transaction history
+                global transaction_history
+                global accessed
+                if (accessed == "no"):
+                    new_user_history = {user_check_in_object["Account No"]: []}
+                    transaction_history.append(new_user_history)
+                    accessed = "yes"
                     return
+                if (accessed == "yes"):
+                    for item in transaction_history:
+                        if (list(item)[0] == user_check_in_object["Account No"]):
+                            tran_his_exists = "yes"
+                            return 
+                    if (tran_his_exists == ""):
+                        new_user_history = {user_check_in_object["Account No"]: []}
+                        transaction_history.append(new_user_history)
+                return
             pin_tries -= 1
             print(f"{long_div}\nUser Not Found!")
             print(f"{long_div}\nYou Have {pin_tries} tries left\n{long_div}")
