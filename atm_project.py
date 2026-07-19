@@ -1,31 +1,31 @@
 # Users
 atm_users = [
    {    "Name": "Sinmiloluwa",
-        "Account No": 9042089471,
+        "Account No": "9042089471",
         "Pin": "9873",
         "Balance": 23290
     },
     {
         "Name": "David",
-        "Account No": 9112189081,
+        "Account No": "9112189081",
         "Pin": "3256",
         "Balance": 3550
     },
      {
         "Name": "Elijah",
-        "Account No": 8088901234,
+        "Account No": "8088901234",
         "Pin": "7654",
         "Balance": 100000
     },
      {
         "Name": "Esther",
-        "Account No": 7135654321,
+        "Account No": "7135654321",
         "Pin": "2987",
         "Balance": 54780
     },
     {
         "Name": "Sarah",
-        "Account No": 7029876123,
+        "Account No": "7029876123",
         "Pin": "4018",
         "Balance": 78240
     }
@@ -54,18 +54,37 @@ def login_page():
             new_username = input("Please Enter Your Desired Username: ")
             if(new_username == "q"):
                 return
+
+            running_loop_2 = True
+            while running_loop_2:
+                number = "valid"
+                print("Press q to quit the action below")
+                new_account_no = input("Please Input Your Phone Number: ")
+                if(new_account_no == "q"):
+                    return
+                if (new_account_no.isdigit() and len(new_account_no) == 11):
+                    for user_1 in atm_users:
+                        if (new_account_no[1:] == user_1["Account No"]):
+                            print(f"{long_div}\nThis Number Already Exists. Please Try Another One\n{long_div}")
+                            number = "invalid"
+                else:
+                    print(f"{long_div}\nPlease Input a Valid 11-Digit Number\n{long_div}")
+                    number = "invalid"
+
+                if (number == "valid"):
+                    print(f"{long_div}\nYour Account Number is {new_account_no[1:]}\n{long_div}")
+                    running_loop_2 = False
+                    break
+
             running_loop = True
             while running_loop:
                 pin = "valid"
                 print("Press q to quit the action below")
-                new_pin = input("Please Create Your Unique Pin: ")
+                new_pin = input(f"Please Create Your Unique Pin: \n{long_div}")
                 if (new_pin == "q"):
                     return
                 if (new_pin.isdigit() and len(new_pin) == 4):
-                    for user_1 in atm_users:
-                        if (new_pin == user_1["Pin"]):
-                            print(f"{long_div}\nThis Pin Already Exists. Please Try Another One\n{long_div}")
-                            pin = "invalid"
+                    pin = "valid"
                 else:
                     print(f"{long_div}\nPlease Input a Valid 4-Digit Pin\n{long_div}")
                     pin = "invalid"
@@ -85,7 +104,7 @@ def login_page():
                     print(f"{long_div}\nPlease Input a Valid Number\n{long_div}")
 
             new_balance = int(new_balance)
-            new_user ={"Name": new_username, "Pin": new_pin, "Balance": new_balance}
+            new_user ={"Name": new_username, "Account No": new_account_no[1:], "Pin": new_pin, "Balance": new_balance}
             print(f"{long_div}\nNew User Successfully Created!")
             atm_users.append(new_user)
             break
@@ -137,28 +156,32 @@ def user_authentication():
     user_pin_tries_pass = ""
     pin_tries = 5
     break_loop = ""
+
+    while True:
+        print(f"{long_div}\nPress q to quit the action below")
+        user_account_no = input(f"Enter Your Account Number: ")
+        if(user_account_no == "q"):
+            return 
+        elif (user_account_no.isdigit() and len(user_account_no) == 10):
+            for user in atm_users:
+                if (user_account_no == user["Account No"]):
+                    user_check_in_object = user
+                    break_loop = "break"
+                    break
+
+        if(break_loop == "break"):
+            break
+        else:
+            print(f"{long_div}\nPlease Input a Valid Account Number")
+
     while True:
         if (pin_tries == 0):
             print(f"{long_div}\nYou Have Exhausted All Your Tries...\n{long_div}")
             break
-        while True:
-            print("Press q to quit the action below")
-            user_account_no = input("Enter Your Account Number: ")
-            if(user_account_no == "q"):
-                return 
-            elif (user_account_no.isdigit() and len(user_account_no) == 10):
-                for user in atm_users:
-                    if (user_account_no == user["Account No"]):
-                        user_check_in_object = user
-                        break_loop = "break"
-                        break
-            elif(break_loop == "break"):
-                break
-            else:
-                print("Please Input a Valid Account Number")
+        
 
-        print("Press q to quit the action below")
-        user_check_in_pin = input("Enter Your 4-Digit Pin: ")
+        print(f"{long_div}\nPress q to quit the action below")
+        user_check_in_pin = input(f"Enter Your 4-Digit Pin: ")
         if(user_check_in_pin == "q"):
             return
         if user_check_in_pin.isdigit() and len(user_check_in_pin) == 4:
@@ -186,15 +209,15 @@ def user_authentication():
                 return
             pin_tries -= 1
             print(f"{long_div}\nUser Not Found!")
-            print(f"{long_div}\nYou Have {pin_tries} tries left\n{long_div}")
+            print(f"{long_div}\nYou Have {pin_tries} tries left")
         elif user_check_in_pin.isdigit() and (len(user_check_in_pin) != 4):
             pin_tries -= 1
             print(f"{long_div}\nPlease Input a Valid Pin")
-            print(f"{long_div}\nYou Have {pin_tries} tries left\n{long_div}")
+            print(f"{long_div}\nYou Have {pin_tries} tries left")
         else: 
             pin_tries -= 1
             print(f"{long_div}\nPlease Input Valid Digits")
-            print(f"{long_div}\nYou Have {pin_tries} tries left\n{long_div}")
+            print(f"{long_div}\nYou Have {pin_tries} tries left")
 
    
       
@@ -209,6 +232,7 @@ def withdraw_cash(user_balance):
         print("Press q to quit the action below")
         amount_to_be_withdrawn = input("Please Enter the Amount You Wish to Withdraw: ")
         if (amount_to_be_withdrawn == "q"):
+            print("")
             return
         elif(amount_to_be_withdrawn == "0"):
             print(f"{long_div}\nAmount Must Be Greater Than Zero\n{long_div}")
@@ -226,8 +250,8 @@ def withdraw_cash(user_balance):
     new_balance = user_balance - amount_to_be_withdrawn
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
-        if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Withdrew {amount_to_be_withdrawn:,.2f} Naira")
+        if (list(item)[0] == user_check_in_object["Account No"]):
+            item[user_check_in_object["Account No"]].append(f"Withdrew {amount_to_be_withdrawn:,.2f} Naira")
     
 # Deposit Cash Function
 def deposit_cash(user_balance):
@@ -235,6 +259,7 @@ def deposit_cash(user_balance):
         print("Press q to quit the action below")
         amount_to_be_deposited = input("Please Enter the Amount You Wish to Deposit: ")
         if (amount_to_be_deposited == "q"):
+            print("")
             return
         elif(amount_to_be_deposited.isdigit() and int(amount_to_be_deposited) > 0):
             amount_to_be_deposited = int(amount_to_be_deposited)
@@ -247,41 +272,29 @@ def deposit_cash(user_balance):
     new_balance = user_balance + amount_to_be_deposited
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
-        if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Deposited {amount_to_be_deposited:,.2f} Naira")
+        if (list(item)[0] == user_check_in_object["Account No"]):
+            item[user_check_in_object["Account No"]].append(f"Deposited {amount_to_be_deposited:,.2f} Naira")
     
 # Change Pin Function
 def change_pin():
     while True:
         while True:
-            pin_pass = ""
             print("Press q to quit the action below")
             new_pin = input("Please Input Your New Pin: ")
             if (new_pin == "q"):
+                print("")
                 return
-            for user_4 in atm_users:
-                if (new_pin == user_4["Pin"] and new_pin != user_check_in_object["Pin"]):
-                    print(f"{long_div}\nThis Pin Already Exists Please Try Another One\n{long_div}")
-                    pin_pass = "no pass"
-            if (pin_pass == ""):
-                if(new_pin == user_check_in_object["Pin"]):
-                    print(f"{long_div}\nYour New Pin Cannot Be The Same As Your Old Pin\n{long_div}")
-                elif (new_pin.isdigit() and len(new_pin) == 4):
-                    break
-                elif (new_pin.isdigit() and len(new_pin) != 4):
-                    print(f"{long_div}\nYour New Pin Must Be 4 Digits!\n{long_div}")
-                else:
-                    print(f"{long_div}\nPlease Input a Valid Pin\n{long_div}")
+            elif(new_pin == user_check_in_object["Pin"]):
+                print(f"{long_div}\nYour New Pin Cannot Be The Same As Your Old Pin\n{long_div}")
+            elif (new_pin.isdigit() and len(new_pin) == 4):
+                break
+            elif (new_pin.isdigit() and len(new_pin) != 4):
+                print(f"{long_div}\nYour New Pin Must Be 4 Digits!\n{long_div}")
+            else:
+                print(f"{long_div}\nPlease Input a Valid Pin\n{long_div}")
 
         confirm_new_pin = input("Confirm The Pin: ")
         if (confirm_new_pin == new_pin):
-            index = 0
-            for item in transaction_history:
-                if (list(item)[0] == user_check_in_object["Pin"]):
-                    true_index = index
-                index += 1
-
-            transaction_history[true_index][new_pin] = transaction_history[true_index].pop(user_check_in_object["Pin"])
             user_check_in_object["Pin"] = new_pin
             print(f"{long_div}\nPin Successfully Changed!\n{long_div}")
             break
@@ -294,6 +307,7 @@ def pay_bills(user_balance):
         print("Press q to quit the action below")
         amount_to_be_paid = input("Please Enter the Amount You Wish to Pay: ")
         if (amount_to_be_paid == "q"):
+            print("")
             return
         elif(amount_to_be_paid == "0"):
             print(f"{long_div}\nAmount Must Be Greater Than Zero\n{long_div}")
@@ -309,18 +323,18 @@ def pay_bills(user_balance):
     new_balance = user_balance - amount_to_be_paid
     user_check_in_object["Balance"] = new_balance
     for item in transaction_history:
-        if (list(item)[0] == user_check_in_object["Pin"]):
-            item[user_check_in_object["Pin"]].append(f"Paid {amount_to_be_paid:,.2f} Naira")
+        if (list(item)[0] == user_check_in_object["Account No"]):
+            item[user_check_in_object["Account No"]].append(f"Paid {amount_to_be_paid:,.2f} Naira")
 
 # Transaction History
 def trans_history(): 
     print(f"{long_div}\n\t  TRANSACTION HISTORY\n{long_div}")
     for item in transaction_history:
-        if (list(item)[0] == user_check_in_object["Pin"]):
-            if(len(item[user_check_in_object["Pin"]]) == 0):
+        if (list(item)[0] == user_check_in_object["Account No"]):
+            if(len(item[user_check_in_object["Account No"]]) == 0):
                 print("You Have Not Made Any Transactions Yet")
             else:   
-                for history in item[user_check_in_object["Pin"]]:
+                for history in item[user_check_in_object["Account No"]]:
                     print(history)     
     print("") 
 
