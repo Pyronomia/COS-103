@@ -52,7 +52,7 @@ def login_page():
         if (login_input == "1"):
             print("Press q to quit the action below")
             new_username = input("Please Enter Your Desired Username: ")
-            if(new_username == "q"):
+            if(new_username.lower() == "q"):
                 return
 
             running_loop_2 = True
@@ -60,7 +60,7 @@ def login_page():
                 number = "valid"
                 print("Press q to quit the action below")
                 new_account_no = input("Please Input Your Phone Number: ")
-                if(new_account_no == "q"):
+                if(new_account_no.lower() == "q"):
                     return
                 if (new_account_no.isdigit() and len(new_account_no) == 11):
                     for user_1 in atm_users:
@@ -80,8 +80,8 @@ def login_page():
             while running_loop:
                 pin = "valid"
                 print("Press q to quit the action below")
-                new_pin = input(f"Please Create Your Unique Pin: \n{long_div}")
-                if (new_pin == "q"):
+                new_pin = input(f"Please Create Your Unique Pin: ")
+                if (new_pin.lower() == "q"):
                     return
                 if (new_pin.isdigit() and len(new_pin) == 4):
                     pin = "valid"
@@ -96,7 +96,7 @@ def login_page():
             while True:
                 print("Press q to quit the action below")
                 new_balance = input("Please Enter the Amount You Wish to Deposit: ")
-                if(new_balance == "q"):
+                if(new_balance.lower() == "q"):
                     return
                 if (new_balance.isdigit()):
                     break
@@ -160,7 +160,7 @@ def user_authentication():
     while True:
         print(f"{long_div}\nPress q to quit the action below")
         user_account_no = input(f"Enter Your Account Number: ")
-        if(user_account_no == "q"):
+        if(user_account_no.lower() == "q"):
             return 
         elif (user_account_no.isdigit() and len(user_account_no) == 10):
             for user in atm_users:
@@ -168,11 +168,15 @@ def user_authentication():
                     user_check_in_object = user
                     break_loop = "break"
                     break
+        else: 
+            print(f"{long_div}\nPlease Input a Valid Account Number")
+            
 
         if(break_loop == "break"):
             break
         else:
-            print(f"{long_div}\nPlease Input a Valid Account Number")
+            print(f"{long_div}\nUser Not Found!")
+
 
     while True:
         if (pin_tries == 0):
@@ -182,7 +186,7 @@ def user_authentication():
 
         print(f"{long_div}\nPress q to quit the action below")
         user_check_in_pin = input(f"Enter Your 4-Digit Pin: ")
-        if(user_check_in_pin == "q"):
+        if(user_check_in_pin.lower() == "q"):
             return
         if user_check_in_pin.isdigit() and len(user_check_in_pin) == 4:
             # Checking if the pin is correct
@@ -208,7 +212,7 @@ def user_authentication():
                         transaction_history.append(new_user_history)
                 return
             pin_tries -= 1
-            print(f"{long_div}\nUser Not Found!")
+            print(f"{long_div}\nInavlid Pin!")
             print(f"{long_div}\nYou Have {pin_tries} tries left")
         elif user_check_in_pin.isdigit() and (len(user_check_in_pin) != 4):
             pin_tries -= 1
@@ -231,7 +235,7 @@ def withdraw_cash(user_balance):
     while True:
         print("Press q to quit the action below")
         amount_to_be_withdrawn = input("Please Enter the Amount You Wish to Withdraw: ")
-        if (amount_to_be_withdrawn == "q"):
+        if (amount_to_be_withdrawn.lower() == "q"):
             print("")
             return
         elif(amount_to_be_withdrawn == "0"):
@@ -258,7 +262,7 @@ def deposit_cash(user_balance):
     while True:
         print("Press q to quit the action below")
         amount_to_be_deposited = input("Please Enter the Amount You Wish to Deposit: ")
-        if (amount_to_be_deposited == "q"):
+        if (amount_to_be_deposited.lower() == "q"):
             print("")
             return
         elif(amount_to_be_deposited.isdigit() and int(amount_to_be_deposited) > 0):
@@ -281,7 +285,7 @@ def change_pin():
         while True:
             print("Press q to quit the action below")
             new_pin = input("Please Input Your New Pin: ")
-            if (new_pin == "q"):
+            if (new_pin.lower() == "q"):
                 print("")
                 return
             elif(new_pin == user_check_in_object["Pin"]):
@@ -306,7 +310,7 @@ def pay_bills(user_balance):
     while True:
         print("Press q to quit the action below")
         amount_to_be_paid = input("Please Enter the Amount You Wish to Pay: ")
-        if (amount_to_be_paid == "q"):
+        if (amount_to_be_paid.lower() == "q"):
             print("")
             return
         elif(amount_to_be_paid == "0"):

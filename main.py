@@ -131,7 +131,7 @@ set_1 = {1,2}
 set_2 = {2,3}
 universal_set = set_1 | set_2
 
-#NOTE | is used to rep union in sets and  & is used to rep intersection - is used to rep difference
+#NOTE | is used to rep union in sets and  & is used to rep intersection - is used to rep difference ^ is used to rep symmetric difference where we have all the differences in both of them
 print(set_1 | set_2)
 print(set_1 & set_2)
 print(set_1 - set_2)
