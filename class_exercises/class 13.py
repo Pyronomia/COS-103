@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('CS Chess Players.csv')
+df = pd.read_csv('./csv_files/CS Chess Players.csv')
 
 # Take any Data frame and report how many missing values are in each column
 print(df.isnull().sum())

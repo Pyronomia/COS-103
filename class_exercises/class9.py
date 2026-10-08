@@ -21,6 +21,15 @@ print(dupli_tuple)
 # Lists are ordered, mutable and can have duplicates
 # Tuples are ordered, immutable and can also have duplicates
 
+# Packing & unpacking
+coords = 12.9716, 77.5946
+lat, lon = coords
+# Multiple return values
+def min_max(nums):
+ return min(nums), max(nums)
+print(min_max([4,1,9,2]))
+low, high = min_max([4, 1, 9, 2])
+
 # Tuple packing
 tuple_1 = 1,2,3
 print(tuple_1)
