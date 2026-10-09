@@ -2,18 +2,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 df = pd.read_csv("./csv_files/Iris.csv")
 features = ["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-# print(df.shape )
-# print(df.columns )
-# print(df.head() )
-# print(df.tail() )
-# df.info()
-# print(df.isnull().sum().sum())
+print(df.shape )
+print(df.columns )
+print(df.head() )
+print(df.tail() )
+df.info()
+print(df.isnull().sum().sum())
 
 df = df.drop(columns = 'Id') # The Id does nothing, and I want to be able to ascertain true duplicates
 print(df.duplicated().sum())
 df.drop_duplicates()
 print(df)
-# From the information I've received above, there are no null values, 3 duplicate values and no inappropriate datatypes so it is only duplicates I had to clean
+# From the information I've received above, there are no null values, no duplicate values and no inappropriate datatypes so it is only nothing I had to clean
 
 corr = df[features].corr()
 print(corr.round(2))
